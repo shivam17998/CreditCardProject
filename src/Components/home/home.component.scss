@@ -1,0 +1,35 @@
+button {
+    background-color: #dc3545; /* Bootstrap Danger Color (Red) */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  button:hover {
+    background-color: #c82333; /* Darker Red on Hover */
+  }
+  
+  button:active {
+    background-color: #a71d2a; /* Even Darker Red on Click */
+    transform: scale(0.98);
+  }
+  
+  button:focus {
+    outline: none;
+    box-shadow: 0 0 5px rgba(220, 53, 69, 0.5);
+  }
+
+  .home-container {
+    display: flex;
+    justify-content: space-between; /* Moves button to the right */
+    align-items: center;
+    padding: 10px;
+  }
+  
+  
