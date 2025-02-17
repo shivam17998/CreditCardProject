@@ -5,6 +5,7 @@ import { AdminAuthGuard } from '../Guard/admin-authgard.guard';
 import { UserComponent } from '../Components/user/user.component';
 import { userAuthguardGuard } from '../Guard/user-authguard.guard';
 import { RegisterComponent } from '../Components/register/register.component';
+import { CardTypeComponent } from '../Components/card-type/card-type.component';
 
 export const routes: Routes = [
 
@@ -12,6 +13,7 @@ export const routes: Routes = [
     {path:'login',component:LoginComponent},
     {path:'home',component:HomeComponent,canActivate:[AdminAuthGuard]},
     {path:'user',component: UserComponent,canActivate:[userAuthguardGuard], },
-    {path:'register', component:RegisterComponent}
+    {path:'register', component:RegisterComponent},
+    {path:'cardtype', component:CardTypeComponent}
    
 ];

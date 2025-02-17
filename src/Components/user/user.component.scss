@@ -820,7 +820,40 @@ footer {
   font-size: 14px;
   opacity: 0.8;
 }
-
+/* account-overview.component.css */
+.card-summary {
+  background-color: #3b82f6;
+  color: white;
+  padding: 16px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.transactions, .billing, .offers {
+  background-color: white;
+  padding: 16px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  margin-bottom: 16px;
+}
+.transaction-list {
+  max-height: 160px;
+  overflow-y: auto;
+  border-top: 1px solid #ccc;
+  padding-top: 8px;
+}
+.transaction-item {
+  padding: 8px 0;
+  border-bottom: 1px solid #eee;
+  display: flex;
+  justify-content: space-between;
+}
+.pay-now {
+  background-color: #ef4444;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+}
 
 
 

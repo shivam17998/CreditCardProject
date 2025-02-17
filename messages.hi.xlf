@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff version="1.2">
+  <file source-language="en" target-language="hi" datatype="plaintext">
+    <body>
+      <trans-unit id="0" datatype="html">
+        <source>Login</source>
+        <target>लॉग इन करें</target>
+      </trans-unit>
+      <trans-unit id="1" datatype="html">
+        <source>Signup</source>
+        <target>साइन अप करें</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

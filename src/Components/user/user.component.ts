@@ -1,15 +1,30 @@
-import { AfterViewChecked, AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
+import { AfterViewChecked, AfterViewInit, Component, ElementRef, Inject, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from '../../Services/theme.service';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
+  imports:[CommonModule],
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements AfterViewChecked {
   private themeKey = 'app-theme';
+
+  availableBalance: string = '$3,200';
+  dueDate: string = '25th Feb 2025';
+  minimumDue: string = '$100';
+  totalDue: string = '$800';
+  rewardPoints: number = 2500;
+  
+  transactions = [
+    { date: 'Feb 15, 2025', merchant: 'Amazon', amount: '$120.00' },
+    { date: 'Feb 14, 2025', merchant: 'Uber', amount: '$25.50' },
+    { date: 'Feb 12, 2025', merchant: 'Starbucks', amount: '$8.75' },
+    { date: 'Feb 10, 2025', merchant: 'Netflix', amount: '$15.99' }
+  ];
    
   
   constructor() {
@@ -89,5 +104,11 @@ export class UserComponent implements AfterViewChecked {
     console.log("Button clicked: User logout");
     localStorage.removeItem('token');
     this.router.navigateByUrl('login');
+  }
+
+   
+  differntTypesofcards(){
+    this.router.navigateByUrl('cardtype');
+
   }
 }

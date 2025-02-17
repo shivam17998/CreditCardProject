@@ -1,0 +1,39 @@
+<div class="search-container">
+    <input type="text" [(ngModel)]="searchQuery" placeholder="Search cards..." />
+  </div>
+  
+  <div class="pagination-container">
+    <label for="recordsPerPage">Records per page: </label>
+    <select id="recordsPerPage" [(ngModel)]="recordsPerPage">
+      <option *ngFor="let option of recordsOptions" [value]="option">{{ option }}</option>
+    </select>
+  </div>
+  
+  <table class="card-table">
+    <thead>
+      <tr>
+        <th>Card Type</th>
+        <th>Card Number</th>
+        <th>Expiry Date</th>
+        <th>Available Balance</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let card of paginatedCards">
+        <td>{{ card.cardType }}</td>
+        <td>{{ card.cardNumber }}</td>
+        <td>{{ card.expiryDate }}</td>
+        <td>{{ card.availableBalance }}</td>
+        <td>{{ card.status }}</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <!-- Pagination Controls -->
+  <div class="pagination">
+    <button (click)="previousPage()" [disabled]="currentPage === 1">Previous</button>
+    <span>Page {{ currentPage }}</span>
+    <button (click)="nextPage()" [disabled]="currentPage === totalPages">Next</button>
+  </div>
+  

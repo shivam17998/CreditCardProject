@@ -36,11 +36,48 @@
   
 
 <div class="sections-container">
-  <section #section1 id="section1">Section 1 Content
+  <section #section1 id="section1">
+    <section class="rewards-section">
+        <!-- <h1>🎁 Account Overview</h1> -->
+        <button  (click)="differntTypesofcards()">Go To Different types of Card</button>
+        <p>Manage your transactions, billing, and rewards all in one place!</p>
 
-    
+        <div class="rewards-container">
+            <div class="reward-card">
+                <h2>💳 Card Summary</h2>
+                <p>Card Number: **** **** **** 1234</p>
+                <p>Available Balance: <span>{{ availableBalance }}</span></p>
+                <p>Total Limit: $5,000</p>
+                <p>Due Date: <span>{{ dueDate }}</span></p>
+            </div>
 
-  </section>
+            <div class="reward-card">
+                <h2>💸 Recent Transactions</h2>
+                <div class="transaction-list">
+                    <div *ngFor="let txn of transactions" class="transaction-item">
+                        <span>{{ txn.date }} - {{ txn.merchant }}</span>
+                        <span class="font-semibold">{{ txn.amount }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reward-card">
+                <h2>💵 Billing & Due Payments</h2>
+                <p>Minimum Due: <span>{{ minimumDue }}</span></p>
+                <p>Total Due: <span>{{ totalDue }}</span></p>
+                <button class="pay-now">Pay Now</button>
+            </div>
+
+            <div class="reward-card">
+                <h2>🎉 Offers & Rewards</h2>
+                <p>Reward Points: <span>{{ rewardPoints }}</span></p>
+                <p>Exclusive Offers: 10% Cashback on Dining</p>
+            </div>
+        </div>
+    </section>
+</section>
+
+
   
   
   <section #section2 id="section2"> 
