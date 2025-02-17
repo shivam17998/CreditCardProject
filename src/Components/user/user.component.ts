@@ -1,6 +1,7 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { ThemeService } from '../../Services/services/theme.service';
+import { ThemeService } from '../../Services/theme.service';
+
 
 @Component({
   selector: 'app-user',
@@ -8,28 +9,29 @@ import { ThemeService } from '../../Services/services/theme.service';
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements AfterViewChecked {
-  isDarkMode = false; // Default is Light Mode
-
-  constructor(private themeService: ThemeService) {
-    // Check local storage for theme preference
-    this.isDarkMode = localStorage.getItem('userDarkMode') === 'true';
-    this.applyTheme();
+  private themeKey = 'app-theme';
+   
+  
+  constructor() {
+    this.loadTheme();
   }
 
   toggleTheme() {
-    this.isDarkMode = !this.isDarkMode;
-    localStorage.setItem('userDarkMode', this.isDarkMode.toString());
-    this.applyTheme();
+    const isDark = document.body.classList.toggle('dark-theme');
+    localStorage.setItem(this.themeKey, isDark ? 'dark' : 'light');
   }
 
-  applyTheme() {
-    const userComponent = document.querySelector('.user-container');
-    if (this.isDarkMode) {
-      userComponent?.classList.add('dark-mode');
-    } else {
-      userComponent?.classList.remove('dark-mode');
+  loadTheme() {
+    const savedTheme = localStorage.getItem(this.themeKey) || 'light';
+    if (savedTheme === 'dark') {
+      document.body.classList.add('dark-theme');
     }
   }
+
+  getTheme(): string {
+    return localStorage.getItem(this.themeKey) || 'light';
+  }
+
   
 
   ngAfterViewChecked(): void {

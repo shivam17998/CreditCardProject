@@ -1,0 +1,74 @@
+<div class="register-container">
+    <div class="image-section">
+      <img src="/card.jpg" alt="Image" class="register-image" />
+    </div>
+  
+    <div class="form-section">
+      <h2>User Registration</h2>
+      <form [formGroup]="userForm" (ngSubmit)="OnSubmitRegister()">
+        <div class="form-group">
+          <label for="username">Username:</label>
+          <input
+            type="text"
+            id="username"
+            formControlName="username"
+            class="input-field"
+          />
+          <div *ngIf="userForm.get('username')?.invalid && userForm.get('username')?.touched" class="error-message">
+            Username is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="email">Email:</label>
+          <input
+            type="email"
+            id="email"
+            formControlName="email"
+            class="input-field"
+          />
+          <div *ngIf="userForm.get('email')?.invalid && userForm.get('email')?.touched" class="error-message">
+            Valid email is required.
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="password">Password:</label>
+          <input
+            type="password"
+            id="password"
+            formControlName="password"
+            class="input-field"
+          />
+          <div *ngIf="userForm.get('password')?.invalid && userForm.get('password')?.touched" class="error-message">
+            Password is required (minimum 6 characters).
+          </div>
+        </div>
+  
+        <div class="form-group">
+          <label for="role">Role:</label>
+          <select
+            id="role"
+            formControlName="role"
+            class="input-field"
+          >
+            <option value="">Select a role</option>
+            <option value="admin">Admin</option>
+            <option value="user">User</option>
+          </select>
+          <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched" class="error-message">
+            Role is required.
+          </div>
+        </div>
+  
+        <button
+          type="submit"
+          [disabled]="userForm.invalid"
+          class="submit-btn"
+        >
+          Register
+        </button>
+      </form>
+    </div>
+  </div>
+  

@@ -5,3 +5,42 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 
 
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+/* Toggle slider container */
+.slider-toggle {
+    width: 50px;
+    height: 26px;
+    background-color: #ccc;
+    border-radius: 26px;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.4s;
+  }
+  
+  :root {
+    --background-color: #ffffff;
+    --text-color: #000000;
+  }
+  
+  .dark-theme {
+    --background-color: #121212;
+    --text-color: #ffffff;
+  }
+  
+  body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+    transition: background-color 0.3s, color 0.3s;
+  }
+
+  /* Add this in your global styles or component-specific CSS */
+.active-link {
+    font-weight: bold;
+    color: #007bff; /* You can choose any color you prefer */
+  }
+  
+  

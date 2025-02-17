@@ -1,0 +1,19 @@
+<p>header works!</p>
+<nav>
+    <div class="header">
+      <a href="/">Home</a>
+      <div class="right-section">
+        <ng-container *ngIf="!username; else loggedIn">
+          <a routerLink="/login">Login</a>
+          <a routerLink="/signup">Signup</a>
+        </ng-container>
+        <ng-template #loggedIn>
+          <span>Welcome, {{ username }}</span>
+          <button (click)="logout()">Logout</button>
+        </ng-template>
+      </div>
+    </div>
+  </nav>
+
+  
+  

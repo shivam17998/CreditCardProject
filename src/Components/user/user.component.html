@@ -22,17 +22,16 @@
     <a href="https://www.yesbank.in/personal-banking/cards/credit-card" (click)="scrollToSection('section5'); $event.preventDefault()">
       Account management
     </a>
-    <a href="https://www.indusind.com/in/en/personal/cards/credit-cards.html" (click)="scrollToSection('section6'); $event.preventDefault()">
+    <!-- <a href="https://www.indusind.com/in/en/personal/cards/credit-cards.html" (click)="scrollToSection('section6'); $event.preventDefault()">
       IndusInd Bank Credit Cards
     </a>
     <a href="https://www.kotak.com/en/personal-banking/cards/credit-cards.html" (click)="scrollToSection('section7'); $event.preventDefault()">
       Kotak Mahindra Bank Credit Cards
-    </a>
+    </a> -->
 
-    <!-- Toggle Dark Mode Button -->
-    <button mat-raised-button color="primary" (click)="toggleTheme()">
-      {{ isDarkMode ? 'Light Mode' : 'Dark Mode' }}
-    </button>
+    <button (click)="toggleTheme()">Toggle Theme</button>
+   
+    
   </nav>
   
 

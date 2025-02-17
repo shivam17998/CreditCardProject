@@ -17,4 +17,9 @@ export class LoginService {
     return this.http.post(`${this.apiUrl}/login`, body);
   }
 
+  register(username: string, email: string, password: string, role: string): Observable<any> {
+    const body = { username, email, password, role };
+    return this.http.post(`${this.apiUrl}/register`, body);
+  }
+
 }

@@ -1,0 +1,21 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+    background: #007bff;
+    color: white;
+  }
+  
+  .right-section a, .right-section span, .right-section button {
+    margin-left: 10px;
+    color: white;
+    text-decoration: none;
+  }
+  
+  .right-section button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: white;
+  }
+  

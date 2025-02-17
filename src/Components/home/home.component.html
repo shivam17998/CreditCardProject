@@ -1,14 +1,74 @@
 <div class="home-container">
     <p>Home works!</p>
-    <button class="logout-btn" (click)="OnLogout()">Log Out</button>
+    <button class="logout-btn" (click)="OnLogout()">Logout</button>
   </div>
   
 
-@if (username!) {
-    <div>
-        <h3>Welcome, {{ username }}!</h3>
-    </div>
-}
+  <div class="admin-container">
+    <h2>Admin - Add Credit Card</h2>
+  
+    <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="cardNumber">Card Number:</label>
+        <input
+          type="text"
+          id="cardNumber"
+          formControlName="cardNumber"
+          class="input-field"
+          placeholder="Enter card number"
+        />
+        <div *ngIf="creditCardForm.get('cardNumber')?.invalid && creditCardForm.get('cardNumber')?.touched" class="error-message">
+          Please enter a valid card number.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="cardHolder">Card Holder:</label>
+        <input
+          type="text"
+          id="cardHolder"
+          formControlName="cardHolder"
+          class="input-field"
+          placeholder="Enter cardholder name"
+        />
+        <div *ngIf="creditCardForm.get('cardHolder')?.invalid && creditCardForm.get('cardHolder')?.touched" class="error-message">
+          Card holder name is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date:</label>
+        <input
+          type="month"
+          id="expiryDate"
+          formControlName="expiryDate"
+          class="input-field"
+        />
+        <div *ngIf="creditCardForm.get('expiryDate')?.invalid && creditCardForm.get('expiryDate')?.touched" class="error-message">
+          Expiry date is required.
+        </div>
+      </div>
+  
+      <div class="form-group">
+        <label for="cvv">CVV:</label>
+        <input
+          type="text"
+          id="cvv"
+          formControlName="cvv"
+          class="input-field"
+          placeholder="Enter CVV"
+        />
+        <div *ngIf="creditCardForm.get('cvv')?.invalid && creditCardForm.get('cvv')?.touched" class="error-message">
+          CVV is required (3 digits).
+        </div>
+      </div>
+  
+      <button type="submit" [disabled]="creditCardForm.invalid" class="submit-btn">
+        Add Card
+      </button>
+    </form>
+  </div>
+  
 
 
 

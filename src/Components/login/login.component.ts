@@ -5,11 +5,13 @@ import { FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import { Router, RouterOutlet } from '@angular/router';
 import { LoginService } from '../../Services/login.service';
 import { HomeComponent } from "../home/home.component";
+import { HeaderComponent } from "../header/header.component";
+import { Console, log } from 'console';
 
 
 @Component({
   selector: 'app-login',
-  imports: [CommonModule, FormsModule,  ReactiveFormsModule,],
+  imports: [CommonModule, FormsModule, ReactiveFormsModule, ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
@@ -38,6 +40,9 @@ export class LoginComponent {
     }
 
     const { username, password } = this.loginForm.value;
+    const username1 = this.loginForm.get('username')?.value as string;
+    this.currentloginuser = username1
+    console.log(this.currentloginuser)
    
    
     
@@ -54,5 +59,10 @@ export class LoginComponent {
         this.errorMessage = 'Invalid username or password!';
       }
     });
+  }
+
+  Register(){
+    console.log("from register")
+    this.router.navigateByUrl('register');
   }
 }
