@@ -30,6 +30,7 @@ button {
     justify-content: space-between; /* Moves button to the right */
     align-items: center;
     padding: 10px;
+    padding-top: 80px;
   }
 
 
@@ -287,12 +288,15 @@ button {
 nav {
   position: fixed;
   top: 0;
+  left: 0;
   width: 100%;
-  background: white;
+  background-color: #fff;  /* Adjust as needed */
+  z-index: 1000;  /* Ensures the navbar is on top of other elements */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Optional: adds a shadow for better visibility */
   padding: 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
   display: flex;
-  gap: 10px;
+  justify-content: space-between;
+  align-items: center;
 }
 .sections-container {
   margin-top: 50px;
@@ -853,6 +857,49 @@ footer {
   padding: 8px 16px;
   border-radius: 4px;
   cursor: pointer;
+}
+
+/* Fix navbar to the top */
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #fff;  /* Adjust as needed */
+  z-index: 1000;  /* Ensures the navbar is on top of other elements */
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);  /* Optional: adds a shadow for better visibility */
+  padding: 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Optional: Adjust body or content margin to prevent overlapping */
+body {
+  margin-top: 60px;  /* Adjust this value according to the navbar height */
+}
+
+/* Section padding to ensure content is not hidden behind the fixed navbar */
+.sections-container {
+  padding-top: 70px;  /* Adjust according to navbar height */
+}
+
+#section2 {
+  padding-top: 80px;  /* Adjust based on your navbar height */
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 60px;  /* Set the height of your navbar */
+  background-color: #fff;
+  z-index: 1000;
+  padding: 10px;
+}
+
+#section2 {
+  padding-top: 80px;  /* Adjust to match or slightly exceed the navbar height */
 }
 
 

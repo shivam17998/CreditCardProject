@@ -2,6 +2,8 @@ import { AfterViewChecked, AfterViewInit, Component, ElementRef, Inject, inject,
 import { Router } from '@angular/router';
 import { ThemeService } from '../../Services/theme.service';
 import { CommonModule } from '@angular/common';
+import { CardSummayService } from '../../Services/card-summay.service';
+import { TransactionService } from '../../Services/transaction.service';
 
 
 @Component({
@@ -26,9 +28,54 @@ export class UserComponent implements AfterViewChecked {
     { date: 'Feb 10, 2025', merchant: 'Netflix', amount: '$15.99' }
   ];
    
-  
+  CardSummaryData: any;  // Variable to store fetched card summary data
+
+  creditCardId:any
+  creditCardIdres:any
+
   constructor() {
+  
     this.loadTheme();
+  }
+
+  cardSummaryServ = inject(CardSummayService)
+  cardTransactionServ = inject(TransactionService)
+
+  ngOnInit(): void {
+    // Get the userId from localStorage
+    const userId = localStorage.getItem('userId');  // Retrieve userId from localStorage
+
+    // Check if userId exists in localStorage
+    if (userId) {
+      // If userId is found, call the service method to get the card summary
+      this.cardSummaryServ.getCardSummaryById(userId).subscribe(
+        (res) => {
+          this.CardSummaryData = res;  // Store the API response data
+          this.creditCardId = this.CardSummaryData[0].cardId;
+          console.log('Card Summary Data:', this.CardSummaryData);
+          
+        },
+        (error) => {
+          console.error('Error fetching card summary:', error);
+        }
+      );
+    } else {
+      console.log('UserId not found in localStorage');
+    }
+    console.log(this.creditCardId)
+    if(this.creditCardId){
+     
+      this.cardTransactionServ.getTransactionByCardId(this.creditCardId).subscribe((res)=>{
+        this.creditCardIdres = res;
+        console.log("result of transaction",this.creditCardIdres )
+      })
+      console.log("result",this.creditCardIdres);
+    }
+
+
+  
+
+   
   }
 
   toggleTheme() {
@@ -111,4 +158,11 @@ export class UserComponent implements AfterViewChecked {
     this.router.navigateByUrl('cardtype');
 
   }
+  PayNow(){
+    console.log("pay button clicked")
+    this.router.navigateByUrl('paynow')
+  }
+
+  
+
 }

@@ -1,6 +1,6 @@
 
 <div class="home-container">
-  <p>User works!</p>
+  <p>That's a  Credit Card Management Website </p>
   <button class="logout-btn" (click)="OnLogoutUser()">Log Out</button>
 </div>
 
@@ -45,10 +45,10 @@
         <div class="rewards-container">
             <div class="reward-card">
                 <h2>💳 Card Summary</h2>
-                <p>Card Number: **** **** **** 1234</p>
-                <p>Available Balance: <span>{{ availableBalance }}</span></p>
-                <p>Total Limit: $5,000</p>
-                <p>Due Date: <span>{{ dueDate }}</span></p>
+                <p>{{CardSummaryData[0].cardNumber}}</p>
+                <p>Available Balance: <span>{{ CardSummaryData[0].avilableBalance}}</span></p>
+                <p>Total Limit: {{ CardSummaryData[0].limit}}</p>
+                <!-- <p>Due Date: <span>{{ dueDate }}</span></p> -->
             </div>
 
             <div class="reward-card">
@@ -65,7 +65,7 @@
                 <h2>💵 Billing & Due Payments</h2>
                 <p>Minimum Due: <span>{{ minimumDue }}</span></p>
                 <p>Total Due: <span>{{ totalDue }}</span></p>
-                <button class="pay-now">Pay Now</button>
+                <button (click)="PayNow()" class="pay-now">Pay Now</button>
             </div>
 
             <div class="reward-card">
@@ -108,7 +108,7 @@
               <p>Credit Limit: $10,000 | Used: $3,500</p>
           </div>
   
-          <!-- Recent Transactions -->
+          <!-- Recent Transactions
           <div class="transactions">
               <h3>Recent Transactions</h3>
               <ul>
@@ -117,7 +117,7 @@
                   <li>Grocery Shopping <span>-$55.20</span></li>
                   <li>Salary Credit <span>+$2,500.00</span></li>
               </ul>
-          </div>
+          </div> -->
       </div>
   
       

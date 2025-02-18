@@ -1,0 +1,8 @@
+<p>pay-now works!</p>
+
+<div class="pay-now-container">
+    <h2>Pay Now</h2>
+    <input type="number" [(ngModel)]="amount" placeholder="Enter amount" />
+    <button (click)="makePayment()">Pay</button>
+    <p *ngIf="paymentSuccess" class="success-message">Payment Successful!</p>
+  </div>

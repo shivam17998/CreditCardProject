@@ -52,15 +52,20 @@ export class LoginComponent {
         // this.currentloginuser =response.username
         console.log('Login Successful:');
         localStorage.setItem('token', response.token); // Store token
+        localStorage.setItem('userId', response.userId); 
         this.router.navigateByUrl('home');
       },
       error: (error) => {
         console.error('Login Failed:', error);
         this.errorMessage = 'Invalid username or password!';
       }
+
     });
   }
 
+
+
+  
   Register(){
     console.log("from register")
     this.router.navigateByUrl('register');
