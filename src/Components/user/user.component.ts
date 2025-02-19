@@ -1,15 +1,16 @@
 import { AfterViewChecked, AfterViewInit, Component, ElementRef, Inject, inject, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
 import { ThemeService } from '../../Services/theme.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { CardSummayService } from '../../Services/card-summay.service';
 import { TransactionService } from '../../Services/transaction.service';
+import { EMPTY, switchMap } from 'rxjs';
 
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  imports:[CommonModule],
+  imports:[CommonModule,DatePipe],
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements AfterViewChecked {
@@ -42,40 +43,34 @@ export class UserComponent implements AfterViewChecked {
   cardTransactionServ = inject(TransactionService)
 
   ngOnInit(): void {
-    // Get the userId from localStorage
-    const userId = localStorage.getItem('userId');  // Retrieve userId from localStorage
-
-    // Check if userId exists in localStorage
+    const userId = localStorage.getItem('userId');
+  
     if (userId) {
-      // If userId is found, call the service method to get the card summary
-      this.cardSummaryServ.getCardSummaryById(userId).subscribe(
-        (res) => {
-          this.CardSummaryData = res;  // Store the API response data
-          this.creditCardId = this.CardSummaryData[0].cardId;
+      this.cardSummaryServ.getCardSummaryById(userId).pipe(
+        switchMap((res: any) => { // Use switchMap to chain the second call
+          this.CardSummaryData = res;
           console.log('Card Summary Data:', this.CardSummaryData);
-          
+  
+          if (res && res.length > 0) { // Check if the response is valid and has data
+            const creditCardId = res[0].cardId; // Extract cardId from the response
+            return this.cardTransactionServ.getTransactionByCardId(creditCardId); // Call the second API
+          } else {
+            console.log("No card summary found for user.");
+            return EMPTY; // Return an empty observable to complete without emitting
+          }
+        })
+      ).subscribe(
+        (transactionRes) => { // This will receive the result of the second API call
+          this.creditCardIdres = transactionRes;
+          console.log("Result of transaction:", this.creditCardIdres);
         },
         (error) => {
-          console.error('Error fetching card summary:', error);
+          console.error('Error fetching data:', error);
         }
       );
     } else {
       console.log('UserId not found in localStorage');
     }
-    console.log(this.creditCardId)
-    if(this.creditCardId){
-     
-      this.cardTransactionServ.getTransactionByCardId(this.creditCardId).subscribe((res)=>{
-        this.creditCardIdres = res;
-        console.log("result of transaction",this.creditCardIdres )
-      })
-      console.log("result",this.creditCardIdres);
-    }
-
-
-  
-
-   
   }
 
   toggleTheme() {
@@ -150,6 +145,8 @@ export class UserComponent implements AfterViewChecked {
   OnLogoutUser() {
     console.log("Button clicked: User logout");
     localStorage.removeItem('token');
+    localStorage.removeItem('userId');
+    localStorage.removeItem('app-theme');
     this.router.navigateByUrl('login');
   }
 
@@ -162,6 +159,10 @@ export class UserComponent implements AfterViewChecked {
     console.log("pay button clicked")
     this.router.navigateByUrl('paynow')
   }
+  getTotalAmount(): number {
+    return this.creditCardIdres.reduce((sum: any, txn: { amount: any; }) => sum + txn.amount, 0);
+  }
+  
 
   
 

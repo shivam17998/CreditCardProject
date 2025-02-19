@@ -53,8 +53,8 @@
             class="input-field"
           >
             <option value="">Select a role</option>
-            <option value="admin">Admin</option>
-            <option value="user">User</option>
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
           </select>
           <div *ngIf="userForm.get('role')?.invalid && userForm.get('role')?.touched" class="error-message">
             Role is required.

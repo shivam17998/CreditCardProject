@@ -4,10 +4,24 @@
   </div>
   
 
-  <div class="admin-container">
+  <!-- <div class="admin-container">
     <h2>Admin - Add Credit Card</h2>
   
     <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
+
+      <div class="form-group">
+        <label for="cardType">Card Type:</label>
+        <select id="cardType" formControlName="cardType" class="input-field">
+          <option value="" disabled selected>Select Card Type</option>
+          <option value="Visa">Visa</option>
+          <option value="MasterCard">MasterCard</option>
+          <option value="Amex">American Express</option>
+        </select>
+        <div *ngIf="creditCardForm.get('cardType')?.invalid && creditCardForm.get('cardType')?.touched" class="error-message">
+          Please select a card type.
+        </div>
+      </div>
+      
       <div class="form-group">
         <label for="cardNumber">Card Number:</label>
         <input
@@ -62,12 +76,204 @@
           CVV is required (3 digits).
         </div>
       </div>
+
+      
   
       <button type="submit" [disabled]="creditCardForm.invalid" class="submit-btn">
         Add Card
       </button>
     </form>
+  </div> -->
+
+  <div class="user-list-container">
+    <h2>User List</h2>
+    <input type="text" [(ngModel)]="searchTerm" (keyup)="searchUsers()" placeholder="Search users..." />
+    
+    <!-- Add User Button -->
+    <button class="add-button" (click)="openPopup()">Add User</button>
+
+    <!-- Popup Modal -->
+    
+
+    <div class="modal" *ngIf="isPopupOpen">
+      <div class="modal-content">
+        <span class="close" (click)="closePopup()">&times;</span>
+        <h2>Add User</h2>
+        
+        <form (submit)="submitUser()">
+          <label>Username:</label>
+          <input type="text" [(ngModel)]="user.username" name="username" required>
+    
+          <label>Email:</label>
+          <input type="email" [(ngModel)]="user.email" name="email" required>
+    
+          <label>Password:</label>
+          <input type="password" [(ngModel)]="user.password" name="password" required>
+    
+          <label>Role:</label>
+          <select [(ngModel)]="user.role" name="role" required>
+            <option value="Admin">Admin</option>
+            <option value="User">User</option>
+          </select>
+    
+          <button type="submit">Submit</button>
+        </form>
+      </div>
+    </div>
+    
+    
+    <table>
+      <thead>
+        <tr>
+          <th>S.No</th>
+          <th>Username</th>
+          <th>Role</th>
+          <th>Email</th>
+          <th>User Actions</th>
+          <th>Card Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let user of filteredUsers; let i = index">
+          <td>{{ (currentPage - 1) * itemsPerPage + i + 1 }}</td> 
+          <td>{{ user.userName }}</td>
+          <td>{{ user.role }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <button class="edit-button"  (click)="openEditModal(editModal, user)">Edit</button>
+            <button class="delete-button" (click)="openDeleteModal(deleteModalTemplate, user)">Delete</button>
+          </td>
+          <td>
+            <button  class="add-button" [disabled]="isConflict"(click)="openEditCardModal(i)">Add</button>
+            <!-- <button class="delete-button" (click)="openDeleteCardModal(deleteModalTemplate, user)">Delete</button> -->
+             @if (isConflict == true) {
+              <p class="error-message">{{ errorMessage }}</p>
+             }
+          
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="!userListdata || userListdata.length === 0">Loading users...</div>
+    <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
   </div>
+
+  <ng-template #editModal let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title">Edit Data</h4>
+      <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form *ngIf="editData">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input type="text" class="form-control" id="name" [(ngModel)]="editData.userName" name="name">
+          </div>
+          <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" class="form-control" id="email" [(ngModel)]="editData.email" name="email">
+          </div>
+          <div class="form-group">
+            <label for="role">Role:</label>
+            <input type="role" class="form-control" id="role" [(ngModel)]="editData.role" name="role">
+          </div>
+          </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="closeModal()">Close</button>
+      <button type="button" class="btn btn-primary" (click)="saveChanges()">Save changes</button>
+    </div>
+
+    
+  </ng-template>
+
+  <!-- Delete Confirmation Modal -->
+<ng-template #deleteModalTemplate let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title">Confirm Delete</h4>
+    <button type="button" class="close" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure you want to delete <strong>{{ deleteData?.userName }}</strong>?</p>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="closeModal()">Cancel</button>
+    <button type="button" class="btn btn-danger" (click)="confirmDelete()">Delete</button>
+  </div>
+</ng-template>
+
+
+
+<!-- Modal -->
+<div class="modal-overlay" *ngIf="isModalOpen">
+  <div class="modal-content">
+    <span class="close-btn" (click)="closeEditCardModal()">&times;</span>
+    
+    <h2>Admin - Add Credit Card</h2>
+
+    <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="cardType">Card Type:</label>
+        <select id="cardType" formControlName="cardType" class="input-field">
+          <option value="" disabled selected>Select Card Type</option>
+          <option value="Visa">Visa</option>
+          <option value="MasterCard">MasterCard</option>
+          <option value="Amex">American Express</option>
+        </select>
+        <div *ngIf="creditCardForm.get('cardType')?.invalid && creditCardForm.get('cardType')?.touched" class="error-message">
+          Please select a card type.
+        </div>
+      </div>
+      
+      <div class="form-group">
+        <label for="cardNumber">Card Number:</label>
+        <input type="text" id="cardNumber" formControlName="cardNumber" class="input-field" placeholder="Enter card number"/>
+        <div *ngIf="creditCardForm.get('cardNumber')?.invalid && creditCardForm.get('cardNumber')?.touched" class="error-message">
+          Please enter a valid card number.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cardHolder">Card Holder:</label>
+        <input type="text" id="cardHolder" formControlName="cardHolder" class="input-field" placeholder="Enter cardholder name"/>
+        <div *ngIf="creditCardForm.get('cardHolder')?.invalid && creditCardForm.get('cardHolder')?.touched" class="error-message">
+          Card holder name is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="expiryDate">Expiry Date:</label>
+        <input type="month" id="expiryDate" formControlName="expiryDate" class="input-field"/>
+        <div *ngIf="creditCardForm.get('expiryDate')?.invalid && creditCardForm.get('expiryDate')?.touched" class="error-message">
+          Expiry date is required.
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="cvv">CVV:</label>
+        <input type="text" id="cvv" formControlName="cvv" class="input-field" placeholder="Enter CVV"/>
+        <div *ngIf="creditCardForm.get('cvv')?.invalid && creditCardForm.get('cvv')?.touched" class="error-message">
+          CVV is required (3 digits).
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="creditCardForm.invalid" class="submit-btn">Add Card</button>
+    </form>
+  </div>
+
+  
+</div>
+
+
+
+  
+
+  
+  
   
 
 

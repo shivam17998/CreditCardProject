@@ -40,12 +40,12 @@
     <section class="rewards-section">
         <!-- <h1>🎁 Account Overview</h1> -->
         <button  (click)="differntTypesofcards()">Go To Different types of Card</button>
-        <p>Manage your transactions, billing, and rewards all in one place!</p>
+        <!-- <p>Manage your transactions, billing, and rewards all in one place!</p> -->
 
         <div class="rewards-container">
             <div class="reward-card">
                 <h2>💳 Card Summary</h2>
-                <p>{{CardSummaryData[0].cardNumber}}</p>
+                <p>Card Number:{{CardSummaryData[0].cardNumber}}</p>
                 <p>Available Balance: <span>{{ CardSummaryData[0].avilableBalance}}</span></p>
                 <p>Total Limit: {{ CardSummaryData[0].limit}}</p>
                 <!-- <p>Due Date: <span>{{ dueDate }}</span></p> -->
@@ -54,14 +54,18 @@
             <div class="reward-card">
                 <h2>💸 Recent Transactions</h2>
                 <div class="transaction-list">
-                    <div *ngFor="let txn of transactions" class="transaction-item">
-                        <span>{{ txn.date }} - {{ txn.merchant }}</span>
-                        <span class="font-semibold">{{ txn.amount }}</span>
+                    <div *ngFor="let txn of creditCardIdres" class="transaction-item">
+                        <div class="txn-details">
+                            <span class="txn-date">{{ txn.transactiondate | date: 'MMM d, y h:mm a' }}</span>
+                            <span class="txn-place">{{ txn.spentplace }}</span>
+                        </div>
+                        <span class="txn-amount">{{ txn.amount | currency }}</span>
                     </div>
                 </div>
+                
             </div>
 
-            <div class="reward-card">
+            <!-- <div class="reward-card">
                 <h2>💵 Billing & Due Payments</h2>
                 <p>Minimum Due: <span>{{ minimumDue }}</span></p>
                 <p>Total Due: <span>{{ totalDue }}</span></p>
@@ -72,7 +76,7 @@
                 <h2>🎉 Offers & Rewards</h2>
                 <p>Reward Points: <span>{{ rewardPoints }}</span></p>
                 <p>Exclusive Offers: 10% Cashback on Dining</p>
-            </div>
+            </div> -->
         </div>
     </section>
 </section>
@@ -93,9 +97,9 @@
           <div class="credit-card">
               <div class="card-details">
                   <h2>Visa Platinum</h2>
-                  <p class="card-number">**** **** **** 5678</p>
+                  <p class="card-number">{{CardSummaryData[0].cardNumber}}</p>
                   <p class="expiry">Expiry: 12/26</p>
-                  <p class="balance">Available Balance: <span>$5,200.00</span></p>
+                  <p class="balance">Available Balance: <span>${{ CardSummaryData[0].avilableBalance}}</span></p>
               </div>
           </div>
   
@@ -105,7 +109,7 @@
               <div class="balance-bar">
                   <div class="progress" style="width: 65%;"></div>
               </div>
-              <p>Credit Limit: $10,000 | Used: $3,500</p>
+              <p>Credit Limit: ${{ CardSummaryData[0].limit}} | Used: ${{getTotalAmount()}}</p>
           </div>
   
           <!-- Recent Transactions
@@ -138,8 +142,8 @@
       <div class="card">
           <div class="card-front">
               <h2>Visa Platinum</h2>
-              <p class="card-number">**** **** **** 5678</p>
-              <p class="balance">Available Balance: <span>$5,200.00</span></p>
+              <p class="card-number">{{CardSummaryData[0].cardNumber}}</p>
+              <p class="balance">Available Balance: <span>${{ CardSummaryData[0].avilableBalance}}</span></p>
               <button id="payNow">💵 Pay Now</button>
           </div>
           <div class="card-back">
@@ -151,9 +155,12 @@
       <div class="transactions">
           <h3>Recent Payments</h3>
           <ul id="paymentList">
-              <li>Electricity Bill <span class="status paid">Paid</span> <span>$80.00</span></li>
-              <li>Internet Bill <span class="status pending">Pending</span> <span>$50.00</span></li>
-              <li>Shopping <span class="status paid">Paid</span> <span>$200.00</span></li>
+
+            @for (item of creditCardIdres; ; track $index) {
+                <li>{{item.spentplace}} <span class="status paid">Paid</span> <span>${{item.amount}}</span></li>
+               
+            }
+             
           </ul>
       </div>
   </div>
@@ -212,8 +219,8 @@
         <div class="account-container">
             <div class="account-card">
                 <h2>💳 Card Information</h2>
-                <p>Card Number: <span id="cardNumber">**** **** **** 5678</span></p>
-                <p>Available Balance: <span id="accountBalance">$5,200.00</span></p>
+                <p>Card Number: <span id="cardNumber">{{CardSummaryData[0].cardNumber}}</span></p>
+                <p>Available Balance: <span id="accountBalance">${{ CardSummaryData[0].avilableBalance}}</span></p>
                 <button id="updateBalance">🔄 Refresh Balance</button>
             </div>
 
@@ -233,9 +240,11 @@
             <div class="account-card">
                 <h2>📜 Transaction History</h2>
                 <ul id="transactionList">
-                    <li>Amazon Purchase <span>-$120.50</span></li>
-                    <li>Netflix Subscription <span>-$15.99</span></li>
-                    <li>Salary Credit <span>+$2,500.00</span></li>
+                    @for (item of creditCardIdres; track $index) {
+                        <li>{{ item.spentplace }}    <span>-${{item.amount  }}</span></li>
+                    }
+                    
+                    
                 </ul>
                 <button id="addTransaction">➕ Add Transaction</button>
             </div>
