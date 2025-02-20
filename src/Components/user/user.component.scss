@@ -199,12 +199,10 @@ html {
 
 
 .credit-card-container {
-  width: 100%;
-  max-width: 1200px;
-  background: #aaa8a8;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;  /* Centers horizontally */
+  align-items: center;  /* Centers vertically */
+  height: 100vh;  /* Makes it take the full viewport height */
 }
 
 #section2 {
@@ -489,6 +487,16 @@ footer {
   font-size: 14px;
   color: #777;
 }
-
+.container {
+  background: #fff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 400px; /* Adjust as needed */
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;  /* Ensures content inside is vertically centered */
+}
 
 
