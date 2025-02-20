@@ -83,7 +83,13 @@ export class HomeComponent  implements OnInit{
 
   isModalOpen = false; // Controls the modal visibility
   isPopupOpen = false;
-  openEditCardModal(index: number) {
+
+
+  editData1: any = null
+ 
+  openEditCardModal(index: number,user:any) {
+    this.editData1 = { ...user }; 
+    console.log("from Add card",this.editData1.id)
     this.selectedIndex = index;  // Store selected index
     this.isModalOpen = true;
     this.rowStates[index] = { isAdding: true, isConflict: false, errorMessage: '' }; // Set adding state and reset conflict
@@ -169,19 +175,29 @@ export class HomeComponent  implements OnInit{
 
     
     // Initialize the form group with validation
-    this.creditCardForm = this.fb.group({
-      cardType: ['', Validators.required],
-      cardNumber: [
-        '',
-        [Validators.required, Validators.pattern(/^\d{16}$/)] // Validates a 16 digit number
-      ],
-      cardHolder: ['', [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)]], // Only alphabetic characters
-      expiryDate: ['', Validators.required],
-      cvv: [
-        '',
-        [Validators.required, Validators.pattern(/^\d{3}$/)] // Validates 3 digits for CVV
-      ],
-    
+          this.creditCardForm = this.fb.group({
+            cardType: ['', Validators.required],
+        cardNumber: [
+          '',
+          [Validators.required, Validators.pattern(/^\d{16}$/)] // Validates a 16-digit number
+        ],
+        cardHolder: [
+          '',
+          [Validators.required, Validators.pattern(/^[a-zA-Z\s]+$/)] // Only alphabetic characters
+        ],
+        expiryDate: ['', Validators.required],
+        cvv: [
+          '',
+          [Validators.required, Validators.pattern(/^\d{3}$/)] // Validates 3 digits for CVV
+        ],
+        availableBalance: [
+          '',
+          [Validators.required, Validators.min(0), Validators.pattern(/^\d+(\.\d{1,2})?$/)] // Positive number with up to 2 decimal places
+        ],
+        limit: [
+          '',
+          [Validators.required, Validators.min(1), Validators.pattern(/^\d+(\.\d{1,2})?$/)] // Minimum value 1, positive number with up to 2 decimals
+        ]
     });
   }
 
@@ -213,21 +229,31 @@ export class HomeComponent  implements OnInit{
       const formattedExpiryDate = formValues.expiryDate.substring(2, 7);
   
       const cardData = {
+        
         CardId: 0,
+        UserId:this.editData1.id,
         cardType: formValues.cardType,
         cardNumber: formValues.cardNumber,
         cardHolder: formValues.cardHolder,
         expiryDate: formattedExpiryDate,
-        cvv: formValues.cvv
+        cvv: formValues.cvv,
+        availableBalance: formValues.availableBalance,
+        limit: formValues.limit
       };
+
+      console.log(cardData,"card dta")
   
       this.creditCardServ.addCard(
+        cardData.UserId,
         cardData.CardId,
         cardData.cardType,
         cardData.cardNumber,
         cardData.cardHolder,
         cardData.expiryDate,
-        cardData.cvv
+        cardData.cvv,
+        cardData.availableBalance,
+        cardData.limit
+
       ).subscribe({
         next: (res) => {
           this.rowStates[index] = { isAdding: false, isConflict: false, errorMessage: '' };

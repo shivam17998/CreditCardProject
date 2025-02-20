@@ -144,7 +144,7 @@
             <button class="delete-button" (click)="openDeleteModal(deleteModalTemplate, user)">Delete</button>
           </td>
           <td>
-            <button class="add-button" [disabled]="rowStates[i]?.isConflict" (click)="openEditCardModal(i)">Add</button>
+            <button class="add-button" [disabled]="rowStates[i]?.isConflict" (click)="openEditCardModal(i,user)">Add</button>
             @if (rowStates[i]?.isConflict) {
               <p class="error-message">{{ rowStates[i]?.errorMessage }}</p>
             }
@@ -257,6 +257,22 @@
         <input type="text" id="cvv" formControlName="cvv" class="input-field" placeholder="Enter CVV"/>
         <div *ngIf="creditCardForm.get('cvv')?.invalid && creditCardForm.get('cvv')?.touched" class="error-message">
           CVV is required (3 digits).
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="availableBalance">Avilable Balance:</label>
+        <input type="text" id="availableBalance" formControlName="availableBalance" class="input-field" placeholder="Enter Avilable Balance"/>
+        <div *ngIf="creditCardForm.get('availableBalance')?.invalid && creditCardForm.get('availableBalance')?.touched" class="error-message">
+          Avilable Balance is  required 
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="limit">Limit</label>
+        <input type="text" id="limit" formControlName="limit" class="input-field" placeholder="Enter Limit"/>
+        <div *ngIf="creditCardForm.get('limit')?.invalid && creditCardForm.get('limit')?.touched" class="error-message">
+          Limit is Required
         </div>
       </div>
 
