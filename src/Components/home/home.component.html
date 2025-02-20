@@ -144,13 +144,12 @@
             <button class="delete-button" (click)="openDeleteModal(deleteModalTemplate, user)">Delete</button>
           </td>
           <td>
-            <button  class="add-button" [disabled]="isConflict"(click)="openEditCardModal(i)">Add</button>
-            <!-- <button class="delete-button" (click)="openDeleteCardModal(deleteModalTemplate, user)">Delete</button> -->
-             @if (isConflict == true) {
-              <p class="error-message">{{ errorMessage }}</p>
-             }
-          
+            <button class="add-button" [disabled]="rowStates[i]?.isConflict" (click)="openEditCardModal(i)">Add</button>
+            @if (rowStates[i]?.isConflict) {
+              <p class="error-message">{{ rowStates[i]?.errorMessage }}</p>
+            }
           </td>
+          
         </tr>
       </tbody>
     </table>
@@ -215,7 +214,7 @@
     
     <h2>Admin - Add Credit Card</h2>
 
-    <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit()">
+    <form [formGroup]="creditCardForm" (ngSubmit)="onSubmit(selectedIndex)">
       <div class="form-group">
         <label for="cardType">Card Type:</label>
         <select id="cardType" formControlName="cardType" class="input-field">

@@ -26,7 +26,19 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     --text-color: #000000;
   }
   
-  .dark-theme {
+ /* Default Light Theme */
+body {
+  background-color: white;
+  color: black;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+/* Dark Theme */
+.dark-theme {
+  background-color: #121212;
+  color: white;
+}
+ .dark-theme {
     --background-color: #121212;
     --text-color: #ffffff;
   }

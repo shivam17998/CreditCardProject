@@ -84,9 +84,11 @@ export class HomeComponent  implements OnInit{
   isModalOpen = false; // Controls the modal visibility
   isPopupOpen = false;
   openEditCardModal(index: number) {
+    this.selectedIndex = index;  // Store selected index
     this.isModalOpen = true;
-    this.rowStates[index] = { isAdding: true, errorMessage: '' }; // Set adding state for this row
+    this.rowStates[index] = { isAdding: true, isConflict: false, errorMessage: '' }; // Set adding state and reset conflict
   }
+  
 
   closeEditCardModal() {
     this.isModalOpen = false;
@@ -198,27 +200,26 @@ export class HomeComponent  implements OnInit{
   }
   
 
- 
-  rowStates: { [key: number]: { isAdding: boolean; errorMessage: string } } = {};
-  // OnSubmit function
-  onSubmit() {
-    if (this.creditCardForm.valid) {
-      
+  selectedIndex: number | null = null;
 
-       
+  rowStates: { [key: number]: { isAdding: boolean; isConflict: boolean; errorMessage: string } } = {};
+
+  // OnSubmit function
+  onSubmit(index: number | null) {
+    if (index === null) return;  // Prevent errors if no row is selected
+  
+    if (this.creditCardForm.valid) {
       const formValues = this.creditCardForm.value;
       const formattedExpiryDate = formValues.expiryDate.substring(2, 7);
   
       const cardData = {
-        CardId:formValues.id=0,
+        CardId: 0,
         cardType: formValues.cardType,
         cardNumber: formValues.cardNumber,
         cardHolder: formValues.cardHolder,
-        expiryDate: formattedExpiryDate, // Convert expiryDate to Date format if necessary
+        expiryDate: formattedExpiryDate,
         cvv: formValues.cvv
       };
-  
-      console.log('Credit Card Added:', cardData);
   
       this.creditCardServ.addCard(
         cardData.CardId,
@@ -229,14 +230,16 @@ export class HomeComponent  implements OnInit{
         cardData.cvv
       ).subscribe({
         next: (res) => {
-          this.isConflict = false; // Reset on success
-          this.CreditCardList = res;
+          this.rowStates[index] = { isAdding: false, isConflict: false, errorMessage: '' };
           console.log('Card added successfully:', res);
         },
         error: (err) => {
           if (err.status === 409) {
-            this.isConflict = true; // Disable button on conflict
-            this.errorMessage = err.error?.message || 'Conflict occurred.';
+            this.rowStates[index] = {
+              isAdding: false,
+              isConflict: true,
+              errorMessage: err.error?.message || 'Conflict occurred.'
+            };
           }
           console.error('Error adding card:', err);
         }
@@ -245,6 +248,8 @@ export class HomeComponent  implements OnInit{
       console.log('Form is invalid');
     }
   }
+  
+  
 
 
   Id:string = ''

@@ -5,12 +5,13 @@ import { CommonModule, DatePipe } from '@angular/common';
 import { CardSummayService } from '../../Services/card-summay.service';
 import { TransactionService } from '../../Services/transaction.service';
 import { EMPTY, switchMap } from 'rxjs';
+import { MatAccordion, MatExpansionPanel, MatExpansionPanelHeader, MatExpansionPanelTitle } from '@angular/material/expansion'; // Import MatAccordion
 
 
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  imports:[CommonModule,DatePipe],
+  imports:[CommonModule,DatePipe,MatAccordion,MatExpansionPanel,MatExpansionPanelHeader,MatExpansionPanelTitle],
   styleUrls: ['./user.component.scss']
 })
 export class UserComponent implements AfterViewChecked {
@@ -42,7 +43,20 @@ export class UserComponent implements AfterViewChecked {
   cardSummaryServ = inject(CardSummayService)
   cardTransactionServ = inject(TransactionService)
 
+  isDarkMode: boolean = false; // Initially light mode
+
+  toggleTheme() {
+    this.isDarkMode = !this.isDarkMode;
+    // ... your theme toggling logic (e.g., setting a class on the body)
+    if (this.isDarkMode) {
+      document.body.classList.add('dark-theme');
+    } else {
+      document.body.classList.remove('dark-theme');
+    }
+  }
+
   ngOnInit(): void {
+    this.loadTheme();
     const userId = localStorage.getItem('userId');
   
     if (userId) {
@@ -73,12 +87,13 @@ export class UserComponent implements AfterViewChecked {
     }
   }
 
-  toggleTheme() {
-    const isDark = document.body.classList.toggle('dark-theme');
-    localStorage.setItem(this.themeKey, isDark ? 'dark' : 'light');
-  }
+  // toggleTheme() {
+  //   const isDark = document.body.classList.toggle('dark-theme');
+  //   localStorage.setItem(this.themeKey, isDark ? 'dark' : 'light');
+  // }
 
   loadTheme() {
+    console.log("theme from constructor")
     const savedTheme = localStorage.getItem(this.themeKey) || 'light';
     if (savedTheme === 'dark') {
       document.body.classList.add('dark-theme');
