@@ -1,5 +1,5 @@
 <div class="home-container">
-    <p>Home works!</p>
+   
     <button class="logout-btn" (click)="OnLogout()">Logout</button>
   </div>
   
@@ -144,7 +144,15 @@
             <button class="delete-button" (click)="openDeleteModal(deleteModalTemplate, user)">Delete</button>
           </td>
           <td>
-            <button class="add-button" [disabled]="rowStates[i]?.isConflict" (click)="openEditCardModal(i,user)">Add</button>
+            <button 
+            class="add-button" 
+            [class.disabled]="user.role === 'Admin' || rowStates[i]?.isConflict"
+            [disabled]="user.role === 'Admin' || rowStates[i]?.isConflict"
+            (click)="openEditCardModal(i, user)"
+          >
+            Add
+          </button>
+          
             @if (rowStates[i]?.isConflict) {
               <p class="error-message">{{ rowStates[i]?.errorMessage }}</p>
             }

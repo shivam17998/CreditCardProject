@@ -20,11 +20,16 @@
     <div class="sections-container">
         <div class="card-summary-container">
             <section #section1 id="section1">
+              <header>
+
+                <h1>Card Summary</h1>
+
+              </header>
               <div class="rewards-container">
                 <div class="reward-card">
                   <h2>💳 Card Summary</h2>
                   <p>Card Number: {{ CardSummaryData[0].cardNumber }}</p>
-                  <p>Available Balance: <span>{{ CardSummaryData[0].avilableBalance }}</span></p>
+                  <p>Available Balance: <span>{{ CardSummaryData[0].availableBalance }}</span></p>
                   <p>Total Limit: {{ CardSummaryData[0].limit }}</p>
                 </div>
           
@@ -47,17 +52,17 @@
   
           <div class="credit-card-container">
             <section #section2 id="section2">
-              <div class="container">
+              
                 <header>
                   <h1>Credit Card Overview</h1>
                 </header>
                 <div class="credit-card">
                   <div class="card-details">
                     <h2>Visa Platinum</h2>
-                    <p class="card-number">{{ CardSummaryData[0].cardNumber }}</p>
-                    <p class="expiry">Expiry: 12/26</p>
+                    <p class="card-number">Card Number {{ CardSummaryData[0].cardNumber }}</p>
+                    <p class="expiry">Expiry-Date {{ CardSummaryData[0].expiryDate }}</p>
                     <p class="balance">
-                      Available Balance: <span>${{ CardSummaryData[0].avilableBalance }}</span>
+                      Available Balance: <span>${{ CardSummaryData[0].availableBalance }}</span>
                     </p>
                   </div>
                 </div>
@@ -70,13 +75,13 @@
                     Credit Limit: ${{ CardSummaryData[0].limit }} | Used: ${{ getTotalAmount() }}
                   </p>
                 </div>
-              </div>
+              
             </section>
           </div>
           
-  
+          <div class="payment-container">
           <section #section3 id="section3">
-            <div class="payment-container">
+            
               <header>
                 <h1>💳 Credit Card Payments</h1>
                 <p>Manage your payments securely and in real-time.</p>
@@ -85,15 +90,15 @@
               <div class="card-container">
                 <div class="card">
                   <div class="card-front">
-                    <h2>Visa Platinum</h2>
-                    <p class="card-number">{{CardSummaryData[0].cardNumber}}</p>
+                    <h2>{{CardSummaryData[0].cardType}}</h2>
+                    <p class="card-number"> Card Number{{CardSummaryData[0].cardNumber}}</p>
                     <p class="balance">
-                      Available Balance: <span>${{ CardSummaryData[0].avilableBalance }}</span>
+                      Available Balance: <span>${{ CardSummaryData[0].availableBalance }}</span>
                     </p>
-                    <button id="payNow">💵 Pay Now</button>
+                    <!-- <button id="payNow">💵 Pay Now</button> -->
                   </div>
                   <div class="card-back">
-                    <p class="security-code">CVV: ***</p>
+                    <p class="security-code">CVV: {{CardSummaryData[0].cvv}}</p>
                     <p>Use this card for seamless transactions.</p>
                   </div>
                 </div>
@@ -108,20 +113,21 @@
                   </li>
                 </ul>
               </div>
-            </div>
+            
           </section>
+          </div>
           
-  
+          <div class="account-container">
           <section #section5 id="section5" class="account-wrapper">
             <div class="account-section">
               <h1>🔹 Account Management</h1>
               <p>Manage your credit card details, transactions, and settings easily.</p>
           
-              <div class="account-container">
+             
                 <div class="account-card">
                   <h2>💳 Card Information</h2>
                   <p>Card Number: <span id="cardNumber">{{ CardSummaryData[0].cardNumber }}</span></p>
-                  <p>Available Balance: <span id="accountBalance">${{ CardSummaryData[0].avilableBalance }}</span></p>
+                  <p>Available Balance: <span id="accountBalance">${{ CardSummaryData[0].availableBalance }}</span></p>
                 </div>
           
                 <div class="account-card">
@@ -133,15 +139,15 @@
                   </ul>
                 </div>
               </div>
-            </div>
           </section>
+        </div>
           
-  
+          
           <section class="final-container">
             <h1>🎉 Thank You for Visiting!</h1>
             <p>We appreciate your time exploring our credit card services. Stay financially smart and enjoy exclusive benefits with your credit card.</p>
             <div class="cta-buttons">
-                <button class="apply-now-btn">Apply for a New Card</button>
+                <!-- <button class="apply-now-btn">Apply for a New Card</button> -->
                 <button class="contact-support-btn">📞 Contact Support</button>
             </div>
             <div class="support-info">

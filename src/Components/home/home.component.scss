@@ -431,6 +431,28 @@ button {
     color: red;
     font-weight: bold;
   }
+
+  .add-button.disabled {
+    background-color: #ccc; /* Grey background */
+    color: #666; /* Dark grey text */
+    cursor: not-allowed; /* Show disabled cursor */
+    opacity: 0.6; /* Make it appear faded */
+  }
+
+  .logout-btn {
+    position: absolute;
+    top: 20px; /* Adjust top position as needed */
+    right: 20px; /* Adjust right position as needed */
+    background-color: #dc3545; /* Red background for logout */
+    color: white;
+    padding: 10px 20px; /* Adjust padding as needed */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    z-index: 10; /* Ensure button is on top of other content */
+    transition: background-color 0.2s; /* Smooth hover effect */
+}
+  
   
   
   

@@ -258,6 +258,7 @@ export class HomeComponent  implements OnInit{
         next: (res) => {
           this.rowStates[index] = { isAdding: false, isConflict: false, errorMessage: '' };
           console.log('Card added successfully:', res);
+          
         },
         error: (err) => {
           if (err.status === 409) {

@@ -1,502 +1,208 @@
+css
 /* General styles */
 body {
-  font-family: Roboto, sans-serif;
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth; /* For smooth scrolling */
-  overflow-x: hidden;
+font-family: Roboto, sans-serif;
+margin: 0;
+padding: 0;
+scroll-behavior: smooth;
+overflow-x: hidden;
 }
-
 /* Home Container */
 .home-container {
-  display: flex;
-  flex-direction: column;
-  min-height: 100vh; /* Ensure full viewport height */
+display: flex;
+flex-direction: column;
+min-height: 100vh;
 }
-
 /* Full-Screen Image Section */
 .full-screen-image {
-  position: relative;
-  height: 100vh;
-  width: 100%;
-  overflow: hidden;
+position: relative;
+height: 100vh;
+width: 100%;
+overflow: hidden;
 }
-
 .full-screen-image img {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center;
+position: absolute;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+object-fit: cover;
+object-position: center;
 }
 
-/* Navbar */
 nav {
-  position: fixed; /* Fix navbar on top */
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: #fff;
-  padding: 10px 20px;
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+background-color: rgba(255, 255, 255, 0.9); 
+padding: 10px 20px;
+z-index: 1000;
+display: flex;
+align-items: center;
+box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+transition: background-color 0.3s; 
 }
-
 nav a {
-  margin-right: 20px;
-  text-decoration: none;
-  color: #333;
-  font-weight: 500;
-  transition: color 0.2s;
+margin-right: 20px;
+text-decoration: none;
+color: #333;
+font-weight: 500;
+transition: color 0.2s;
 }
-
 nav a:hover {
-  color: #007bff;
+color: #007bff;
 }
-
 nav button {
-  margin-left: auto;
-  background: none;
-  border: none;
-  padding: 8px 16px;
-  border-radius: 4px;
-  cursor: pointer;
-  font-weight: 500;
-  transition: background-color 0.2s;
+margin-left: auto;
+background: none;
+border: none;
+padding: 8px 16px;
+border-radius: 4px;
+cursor: pointer;
+font-weight: 500;
+transition: background-color 0.2s, transform 0.2s; /* Add transform for button hover */
 }
-
 nav .theme-toggle-button {
-  margin-left: 10px;
+margin-left: 10px;
 }
-
 nav .logout-btn {
-  background-color: #dc3545;
-  color: white;
+background-color: #dc3545;
+color: white;
+border-radius: 4px;
 }
-
 nav button:hover {
-  background-color: #f0f0f0;
+background-color: #f0f0f0;
+transform: scale(1.05); /* Slight scale effect on hover */
 }
-
 nav .logout-btn:hover {
-  background-color: #c82333;
+background-color: #c82333;
+}
+/* Sections Container */
+.sections-container {
+margin-top: 60px;
+padding: 0;
+flex: 1;
+}
+/* Section Styling */
+section {
+padding: 4rem 0;
+scroll-margin-top: 60px;
+margin-bottom: 2rem;
+}
+/* Rewards Section */
+.rewards-section {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+}
+.rewards-container {
+flex: 1 1 300px;
+}
+.reward-card {
+border: 1px solid #ddd;
+padding: 50px;
+border-radius: 8px;
+box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1); /* Enhanced shadow for depth /
+background-color: #fff;
+margin-bottom: 20px;
+transition: transform 0.3s; / Animation effect */
+}
+.reward-card:hover {
+transform: translateY(-5px); /* Lift effect on hover */
+}
+/* Account Management Section */
+.account-section {
+padding: 4rem 0;
+}
+.account-container {
+display: flex;
+flex-wrap: wrap;
+gap: 20px;
+}
+.account-card {
+flex: 1;
+background: #fff;
+padding: 20px;
+margin: 10px;
+border-radius: 8px;
+box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
+min-width: 280px;
+transition: transform 0.3s; /* Add transition for the card */
+}
+.account-card:hover {
+transform: translateY(-5px); /* Card lift effect on hover */
+}
+/* Final Section */
+.final-container {
+text-align: center;
+padding: 40px;
+background-color: #f8f9fa;
 }
 
 /* Sections Container */
 .sections-container {
-  margin-top: 60px; /* Ensure sections are not hidden behind the fixed navbar */
   padding: 2rem;
-  flex: 1; /* Allow container to expand */
-  overflow-y: auto; /* Enable vertical scrolling */
+  flex: 1; /* Allow sections container to expand */
+  overflow-y: auto; /* Enable vertical scrolling for sections */
+  /* Add any other necessary styles*/
 }
-
-/* Section Styling */
-section {
-  padding: 4rem 0; /* Add spacing */
-  min-height: 100vh; /* Ensure full viewport height for scrolling */
-  scroll-margin-top: 60px; /* Adjust for fixed navbar */
-}
-
-/* Smooth Scrolling Effect */
-html {
-  scroll-behavior: smooth;
-}
-
-/* Rewards Section */
-.rewards-section {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
-
-.rewards-container {
-  flex: 1 1 300px;
-}
-
-.reward-card {
-  border: 1px solid #ddd;
-  padding: 50px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  margin-bottom: 20px;
-}
-
-/* Account Management Section */
-.account-section {
-  padding: 4rem 0;
-}
-
+// .sections-container { /* Or whatever you name your container class */
+//   max-width: 960px; /* Or your desired maximum width */
+//   margin: 0 auto; /* Center the container on the page */
+//   padding: 20px;
+// }
+/* Section Containers (Card Summary, Credit Card, etc.) */
+.card-summary-container,
+.credit-card-container,
+.payment-container,
 .account-container {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
+  background-color: #f4eded;
+  border-radius: 25px;
+  padding: 2rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  margin-bottom: 2rem; /* Space between section containers */
 }
 
-.account-card {
-  border: 1px solid #ddd;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
-  background-color: #fff;
-  margin-bottom: 20px;
-  flex: 1 1 300px;
+/* Sections within Containers */
+section {
+  margin-bottom: 2rem; /* Space between sections */
 }
 
-/* Final Section */
-.final-container {
-  text-align: center;
-  padding: 40px;
-  background-color: #f8f9fa;
+section:last-of-type {
+  margin-bottom: 0; /* Remove bottom margin from the last section */
 }
 
+#section1 header h1::after,
+#section2 header h1::after,
+.payment-container header h1::after,
+.account-section h1::after,
+.final-container h1::after {
+    content: "";
+    display: block;
+    width: 102%; /* Adjust width of the underline */
+    height: 2px;
+    background-color: #007bff; /* Use your primary color */
+    margin: 10px auto 0; /* Center the underline */
+}
 /* Responsive Design */
 @media (max-width: 768px) {
-  nav {
-      flex-direction: column;
-      align-items: flex-start;
-      padding: 10px;
-  }
-
-  nav a, nav button {
-      margin: 10px 0;
-      width: 100%;
-  }
-
-  .rewards-section,
-  .account-container {
-      flex-direction: column; /* Stack cards vertically */
-  }
-
-  .rewards-container,
-  .account-card {
-      flex: 1 1 auto; /* Each container/card takes full width */
-  }
+nav {
+flex-direction: column;
+align-items: flex-start;
+padding: 10px;
 }
-
-.card-summary-container {
-  width: 100vw;
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 20px;
-  background-color: #f9f0f0; /* Optional: Adjust background color */
+nav a,
+nav button {
+margin: 10px 0;
+width: 100%;
 }
-
-#section1 {
-  width: 100%;
-  max-width: 1200px; /* Adjust this based on your design preference */
-  background: #aaa8a8;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-
-
-.credit-card-container {
-  display: flex;
-  justify-content: center;  /* Centers horizontally */
-  align-items: center;  /* Centers vertically */
-  height: 100vh;  /* Makes it take the full viewport height */
-}
-
-#section2 {
-  width: 100%;
-  max-width: 500px;
-  background: #fff;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  text-align: center;
-}
-
-header h1 {
-  color: #333;
-  font-size: 24px;
-  margin-bottom: 20px;
-}
-
-.credit-card {
-  background: linear-gradient(135deg, #1e3c72, #2a5298);
-  color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-  text-align: left;
-}
-
-.card-details h2 {
-  margin: 0;
-  font-size: 20px;
-}
-
-.card-number {
-  font-size: 18px;
-  letter-spacing: 1px;
-  margin-top: 5px;
-}
-
-.expiry,
-.balance {
-  font-size: 16px;
-  margin-top: 5px;
-}
-
-.balance span {
-  font-weight: bold;
-}
-
-.account-summary {
-  margin-top: 20px;
-  text-align: left;
-}
-
-.account-summary h3 {
-  font-size: 18px;
-  margin-bottom: 10px;
-}
-
-.balance-bar {
-  width: 100%;
-  height: 10px;
-  background: #ddd;
-  border-radius: 5px;
-  overflow: hidden;
-  margin-bottom: 10px;
-}
-
-.progress {
-  height: 100%;
-  background: #28a745;
-  transition: width 0.5s ease-in-out;
-}
-
-.payment-container {
-  max-width: 900px;
-  margin: auto;
-  background: #8d8e90;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-}
-
-.payment-container header h1 {
-  font-size: 24px;
-  color: #333;
-}
-
-.payment-container header p {
-  font-size: 16px;
-  color: #666;
-}
-
-.card-container {
-  display: flex;
-  justify-content: center;
-  margin-top: 20px;
-}
-
-.card {
-  background: linear-gradient(135deg, #a4a6a6, #595b5b);
-  color: white;
-  padding: 20px;
-  border-radius: 15px;
-  width: 300px;
-  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.2);
-  text-align: left;
-}
-
-.card-front h2 {
-  font-size: 20px;
-  margin-bottom: 10px;
-}
-
-.card-number {
-  font-size: 18px;
-  font-weight: bold;
-  margin-bottom: 10px;
-}
-
-.balance {
-  font-size: 16px;
-}
-
-.balance span {
-  font-weight: bold;
-}
-
-#payNow {
-  margin-top: 10px;
-  padding: 10px 15px;
-  background: #ffcc00;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-  font-weight: bold;
-}
-
-.transactions-container {
-  background: white;
-  padding: 15px;
-  margin-top: 20px;
-  border-radius: 10px;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.transactions-container h3 {
-  font-size: 20px;
-  color: #333;
-}
-
-#paymentList {
-  list-style: none;
-  padding: 0;
-}
-
-#paymentList li {
-  display: flex;
-  justify-content: space-between;
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.status.paid {
-  color: green;
-  font-weight: bold;
-}
-.account-wrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  background: #f8f9fa;
-  padding: 40px 0;
-}
-
-.account-section {
-  width: 80%;
-  max-width: 1200px;
-  background: rgb(161, 159, 159);
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-}
-
-.account-section h1 {
-  text-align: center;
-  color: #333;
-  margin-bottom: 10px;
-}
-
-.account-section p {
-  text-align: center;
-  color: #555;
-}
-
+.rewards-section,
 .account-container {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  margin-top: 20px;
+flex-direction: column;
 }
-
+.rewards-container,
 .account-card {
-  flex: 1;
-  background: #fff;
-  padding: 20px;
-  margin: 10px;
-  border-radius: 10px;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.1);
-  min-width: 280px;
+flex: 1 1 auto; /* Allow auto resizing */
 }
-
-.account-card h2 {
-  color: #007bff;
-  margin-bottom: 10px;
 }
-
-#transactionList {
-  list-style: none;
-  padding: 0;
-}
-
-#transactionList li {
-  display: flex;
-  justify-content: space-between;
-  background: #f1f1f1;
-  padding: 8px 12px;
-  margin-bottom: 8px;
-  border-radius: 6px;
-}
-
-#transactionList li span {
-  color: #dc3545;
-  font-weight: bold;
-}
-
-.final-container {
-  background: #999797;
-  padding: 30px;
-  border-radius: 12px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-  text-align: center;
-  width: 1500px;
-}
-h1 {
-  color: #2c3e50;
-}
-p {
-  color: #555;
-}
-.cta-buttons button {
-  margin: 10px;
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  font-size: 16px;
-}
-.apply-now-btn {
-  background-color: #3498db;
-  color: white;
-}
-.apply-now-btn:hover {
-  background-color: #2980b9;
-}
-.contact-support-btn {
-  background-color: #e74c3c;
-  color: white;
-}
-.contact-support-btn:hover {
-  background-color: #c0392b;
-}
-.support-info {
-  margin-top: 100px;
-  background: #ecf0f1;
-  padding: 15px;
-  border-radius: 8px;
-}
-footer {
-  margin-top: 20px;
-  font-size: 14px;
-  color: #777;
-}
-.container {
-  background: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  width: 400px; /* Adjust as needed */
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;  /* Ensures content inside is vertically centered */
-}
-
-
