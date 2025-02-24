@@ -38,14 +38,14 @@ export class HomeComponent  implements OnInit{
 
 
   // Pagination
-  pageChanged(event: any): void {
-    this.currentPage = event;
-    this.filterUsers(); // Apply filtering after page change
-  }
+  // pageChanged(event: any): void {
+  //   this.currentPage = event.page;
+  //   this.filterUsers(); // Apply filtering after page change
+  // }
 
   // Search
   searchUsers(): void {
-    this.currentPage = 1; // Reset to first page when searching
+    // this.currentPage = 1; // Reset to first page when searching
     this.filterUsers();
   }
 
@@ -63,22 +63,72 @@ export class HomeComponent  implements OnInit{
   //   this.filteredUsers = this.filteredUsers.slice(startIndex, endIndex); // Paginate the filtered results
   // }
   filterUsers(): void {
-    // 1. Apply search filter (if a search term is entered)
-    let filteredBySearch = this.userListdata; // Start with all data
+    if (!this.userListdata || this.userListdata.length === 0) return;
   
-    if (this.searchTerm) { // Only filter if there's a search term
-      filteredBySearch = this.userListdata.filter((user: any) => {
+    // **Step 1: Apply Search Filter**
+    let filteredData = this.userListdata;
+    if (this.searchTerm) {
+      filteredData = this.userListdata.filter((user: any) => {
         const searchStr = `${user.userName} ${user.role} ${user.email}`.toLowerCase();
         return searchStr.includes(this.searchTerm.toLowerCase());
       });
     }
   
-    // 2. Paginate the filtered results
-    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-    const endIndex = startIndex + this.itemsPerPage;
+    // **Step 2: Preserve Page If Still Valid**
+    const totalFilteredItems = filteredData.length;
+    const maxPages = Math.ceil(totalFilteredItems / this.itemsPerPage);
   
-    this.filteredUsers = filteredBySearch.slice(startIndex, endIndex);
+    if (this.currentPage > maxPages) {
+      this.currentPage = maxPages || 1; // Move to the last available page if needed
+    }
+  
+    // **Step 3: Apply Pagination**
+    const startIndex = (this.currentPage - 1) * this.itemsPerPage;
+    const endIndex = Math.min(startIndex + this.itemsPerPage, totalFilteredItems);
+    this.filteredUsers = filteredData.slice(startIndex, endIndex);
+  
+    // **Step 4: Update Total Count**
+    this.totalItems = totalFilteredItems;
+  
+    // // **Debugging Logs**
+    // console.log('User Data (Original):', this.userListdata.length);
+    // console.log('Filtered Data (After Search):', filteredData.length);
+    // console.log('Filtered Users (Paginated Data):', this.filteredUsers.length);
+    // console.log('Total Items (Filtered Count):', this.totalItems);
+    // console.log('Current Page:', this.currentPage);
+    // console.log('Start Index:', startIndex, 'End Index:', endIndex);
   }
+  
+  // **Pagination Change Handler**
+  pageChanged(event: any): void {
+    console.log("Pge changed")
+    this.currentPage = event.page;
+    this.filterUsers(); // Reapply filtering & pagination when page changes
+  }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 
   isModalOpen = false; // Controls the modal visibility

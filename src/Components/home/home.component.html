@@ -162,6 +162,7 @@
       </tbody>
     </table>
     <div *ngIf="!userListdata || userListdata.length === 0">Loading users...</div>
+    
     <pagination [totalItems]="totalItems" [(ngModel)]="currentPage" [itemsPerPage]="itemsPerPage" (pageChanged)="pageChanged($event)"></pagination>
   </div>
 
